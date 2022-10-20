@@ -4,6 +4,8 @@ import com.example.fabrickcontroller.domain.MaskBalanceDomain;
 import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.domain.TransactionDomain;
 import com.example.fabrickcontroller.repository.TransactionRepository;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +27,17 @@ public class AccountService extends BaseService {
     @Autowired
     RestTemplate restTemplate;
 
-    public ResponseEntity<Object> getAccounts() {
+    public @NotNull ResponseEntity<Object> getAccounts() {
         return restTemplate.exchange(baseSlug, HttpMethod.GET, generateHeaders(), Object.class);
     }
 
-    public ResponseEntity<Object> getAccount(String accountId) {
+    public @NotNull ResponseEntity<Object> getAccount(String accountId) {
         String slug = baseSlug + "/" + accountId;
         log.info("Requesting data from " + slug);
         return restTemplate.exchange(slug, HttpMethod.GET, generateHeaders(), Object.class);
     }
 
-    public MaskBalanceDomain getBalance(String accountId) {
+    public @Nullable MaskBalanceDomain getBalance(String accountId) {
         String slug = baseSlug + "/" + accountId + "/balance";
         log.info("Retrieving account balance for the account " + accountId);
         ResponseEntity<MaskBalanceDomain> responseEntity = restTemplate.exchange(slug,
@@ -46,9 +48,9 @@ public class AccountService extends BaseService {
         return responseEntity.getBody();
     }
 
-    public MaskTransactionListDomain getTransactions(String accountId,
-                                                     String fromAccountingDate,
-                                                     String toAccountingDate) {
+    public @Nullable MaskTransactionListDomain getTransactions(String accountId,
+                                                               String fromAccountingDate,
+                                                               String toAccountingDate) {
         String slug = baseSlug + "/" + accountId + "/transactions";
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(slug)
                 .queryParam("fromAccountingDate", fromAccountingDate)

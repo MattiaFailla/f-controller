@@ -1,5 +1,6 @@
 package com.example.fabrickcontroller;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +20,7 @@ public class FabrickControllerApplication {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    public RestTemplate restTemplate(@NotNull RestTemplateBuilder builder) {
         return builder.build();
     }
 

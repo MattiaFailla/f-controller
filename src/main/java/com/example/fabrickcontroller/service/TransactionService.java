@@ -17,7 +17,7 @@ public class TransactionService extends BaseService {
     RestTemplate restTemplate;
 
 
-    public ResponseEntity<Object> triggerTransaction(String accountId, @NotNull MoneyTransferDomainDto moneyTransferDto) {
+    public @NotNull ResponseEntity<Object> triggerTransaction(String accountId, @NotNull MoneyTransferDomainDto moneyTransferDto) {
         String slug = baseSlug + "/" + accountId + "/payments/money-transfers";
         log.info("Triggering transaction for a total value of " + moneyTransferDto.getAmount() + " to " + moneyTransferDto.getCreditor());
         // Custom headers set due to type mismatch on post request headers type
