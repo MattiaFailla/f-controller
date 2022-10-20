@@ -1,7 +1,7 @@
 package com.example.fabrickcontroller.controller;
 
 import com.example.fabrickcontroller.domain.MaskBalanceDomain;
-import com.example.fabrickcontroller.domain.MaskTransactionDomain;
+import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +29,9 @@ public class AccountController {
     }
 
     @GetMapping("{accountId}/transactions")
-    public MaskTransactionDomain getTransactions(@PathVariable("accountId") String accountId,
-                                                 @RequestParam("fromAccountingDate") String fromAccountingDate,
-                                                 @RequestParam("toAccountingDate") String toAccountingDate) {
+    public MaskTransactionListDomain getTransactions(@PathVariable("accountId") String accountId,
+                                                     @RequestParam("fromAccountingDate") String fromAccountingDate,
+                                                     @RequestParam("toAccountingDate") String toAccountingDate) {
         return accountService.getTransactions(accountId, fromAccountingDate, toAccountingDate);
     }
 

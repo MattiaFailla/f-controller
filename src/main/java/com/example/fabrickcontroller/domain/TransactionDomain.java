@@ -1,31 +1,57 @@
 package com.example.fabrickcontroller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@JsonIgnoreProperties(ignoreUnknown = false)
+import javax.persistence.*;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "txs")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDomain {
-    private int transactionId;
-    private int operationId;
+    @Id
+    @Column(name = "transactionId")
+    private String transactionId;
+    @Column(name = "operationId")
+    private String operationId;
+    @Column(name = "accountingDate")
     private String accountingDate;
+    @Column(name = "valueDate")
     private String ValueDate;
+    @Transient
+    @Column(name = "type")
     private Object type;
-    private int amount;
+    @Column(name = "amount")
+    private float amount;
+    @Column(name = "currency")
     private String currency;
+    @Column(name = "description")
     private String description;
 
-    public int getTransactionId() {
+    public TransactionDomain() {
+
+    }
+
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
-    public int getOperationId() {
+    public String getOperationId() {
         return operationId;
     }
 
-    public void setOperationId(int operationId) {
+    public void setOperationId(String operationId) {
         this.operationId = operationId;
     }
 
@@ -53,11 +79,11 @@ public class TransactionDomain {
         this.type = type;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

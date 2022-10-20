@@ -2,16 +2,11 @@ package com.example.fabrickcontroller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = false)
-public class MaskTransactionDomain {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TransactionListDomain {
     private List<TransactionDomain> list;
-
-    public MaskTransactionDomain() {
-        list = new ArrayList<>();
-    }
 
     public List<TransactionDomain> getList() {
         return list;
