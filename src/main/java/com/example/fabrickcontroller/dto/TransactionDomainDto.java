@@ -2,6 +2,7 @@ package com.example.fabrickcontroller.dto;
 
 import com.example.fabrickcontroller.domain.TransactionDomain;
 import lombok.Data;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.Id;
 import javax.persistence.MapKey;
@@ -14,11 +15,11 @@ import java.io.Serializable;
 public class TransactionDomainDto implements Serializable {
     @Id
     @MapKey
-    private final String transactionId;
-    private final String operationId;
-    private final String accountingDate;
-    private final String ValueDate;
+    private final @NotNull String transactionId;
+    private final @NotNull String operationId;
+    private final @NotNull String accountingDate;
+    private final @NotNull String ValueDate;
     private final float amount;
-    private final String currency;
-    private final String description;
+    private final @NotNull String currency;
+    private final @NotNull String description;
 }
