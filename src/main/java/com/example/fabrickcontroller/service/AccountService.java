@@ -3,6 +3,7 @@ package com.example.fabrickcontroller.service;
 import com.example.fabrickcontroller.domain.MaskBalanceDomain;
 import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.domain.TransactionDomain;
+import com.example.fabrickcontroller.repository.TransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import java.util.List;
 public class AccountService extends BaseService {
     private static final Logger log = LoggerFactory.getLogger(AccountService.class);
     private final String baseSlug = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
+
+    @Autowired
+    TransactionRepository transactionRepository;
     @Autowired
     RestTemplate restTemplate;
 
@@ -64,6 +68,7 @@ public class AccountService extends BaseService {
         List<TransactionDomain> txs = responseEntityBody.getPayload().getList();
         txs.forEach((tx) -> log.info(tx.getDescription()));
         log.info("Updating internal db with the list of txs");
+        transactionRepository.saveAll(txs);
         log.info("Printing base REST request:");
         log.info(String.valueOf(restTemplate.exchange(urlTemplate, HttpMethod.GET, generateHeaders(), Object.class)));
         return responseEntityBody;

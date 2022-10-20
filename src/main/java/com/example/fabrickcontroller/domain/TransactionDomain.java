@@ -1,17 +1,43 @@
 package com.example.fabrickcontroller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "txs")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDomain {
+    @Id
+    @Column(name = "transactionId")
     private String transactionId;
+    @Column(name = "operationId")
     private String operationId;
+    @Column(name = "accountingDate")
     private String accountingDate;
+    @Column(name = "valueDate")
     private String ValueDate;
+    @Transient
+    @Column(name = "type")
     private Object type;
+    @Column(name = "amount")
     private float amount;
+    @Column(name = "currency")
     private String currency;
+    @Column(name = "description")
     private String description;
+
+    public TransactionDomain() {
+
+    }
 
     public String getTransactionId() {
         return transactionId;
