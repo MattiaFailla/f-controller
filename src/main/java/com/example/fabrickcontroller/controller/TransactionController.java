@@ -1,6 +1,6 @@
 package com.example.fabrickcontroller.controller;
 
-import com.example.fabrickcontroller.domain.MoneyTransferDomainDto;
+import com.example.fabrickcontroller.dto.MoneyTransferDomainDto;
 import com.example.fabrickcontroller.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

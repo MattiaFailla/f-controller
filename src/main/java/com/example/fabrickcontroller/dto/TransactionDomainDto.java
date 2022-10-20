@@ -1,5 +1,6 @@
-package com.example.fabrickcontroller.domain;
+package com.example.fabrickcontroller.dto;
 
+import com.example.fabrickcontroller.domain.TransactionDomain;
 import lombok.Data;
 
 import javax.persistence.Id;

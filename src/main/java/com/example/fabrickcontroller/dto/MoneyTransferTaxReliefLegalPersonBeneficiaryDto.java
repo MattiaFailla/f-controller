@@ -1,4 +1,4 @@
-package com.example.fabrickcontroller.domain;
+package com.example.fabrickcontroller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
