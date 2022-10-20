@@ -11,6 +11,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MoneyTransferCreditorDto implements Serializable {
     private String name;
-    private MoneyTransferCreditorDto account;
+    private MoneyTransferAccountDto account;
     private MoneyTransferAddressDto address;
 }

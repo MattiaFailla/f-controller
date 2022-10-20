@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MoneyTransferTaxReliefDto implements Serializable {
     private String taxReliefId;
-    private boolean isCondoUpgrade;
+    private Boolean isCondoUpgrade;
     private String creditorFiscalCode;
     private String beneficiaryType;
     private MoneyTransferTaxReliefNaturalPersonBeneficiaryDto naturalPersonBeneficiary;

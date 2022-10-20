@@ -63,10 +63,14 @@ public class AccountService extends BaseService {
                 }
         );
         MaskTransactionListDomain responseEntityBody = responseEntity.getBody();
-        List<TransactionDomain> txs = responseEntityBody.getPayload().getList();
-        txs.forEach((tx) -> log.info(tx.getDescription()));
-        log.info("Updating internal db with the list of txs");
-        transactionRepository.saveAll(txs);
+        List<TransactionDomain> txs;
+        if (responseEntityBody != null) {
+            txs = responseEntityBody.getPayload().getList();
+            log.info("Updating internal db with the list of txs");
+            transactionRepository.saveAll(txs);
+        } else {
+            log.error("No valid transactions found in the provided dataframe for the specified account");
+        }
         return responseEntityBody;
     }
 

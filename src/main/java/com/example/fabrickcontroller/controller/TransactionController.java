@@ -13,7 +13,7 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @GetMapping("/{accountId}/create-transaction")
+    @PostMapping("/{accountId}/create-transaction")
     public ResponseEntity<Object> createMoneyTransfer(@PathVariable(name = "accountId") String accountId,
                                                       @RequestBody MoneyTransferDomainDto moneyTransferDto) {
         return transactionService.triggerTransaction(accountId, moneyTransferDto);

@@ -1,30 +1,36 @@
 package com.example.fabrickcontroller.service;
 
 import com.example.fabrickcontroller.domain.MoneyTransferDomainDto;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.logging.Logger;
-
 @Service
 public class TransactionService extends BaseService {
-    private final Logger log = (Logger) LoggerFactory.getLogger(TransactionService.class);
+    private static final Logger log = LoggerFactory.getLogger(TransactionService.class);
+    @Autowired
     RestTemplate restTemplate;
 
 
-    public ResponseEntity<Object> triggerTransaction(String accountId, MoneyTransferDomainDto moneyTransferDto) {
+    public ResponseEntity<Object> triggerTransaction(String accountId, @NotNull MoneyTransferDomainDto moneyTransferDto) {
         String slug = baseSlug + "/" + accountId + "/payments/money-transfers";
         log.info("Triggering transaction for a total value of " + moneyTransferDto.getAmount() + " to " + moneyTransferDto.getCreditor());
+        // Custom headers set due to type mismatch on post request headers type
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Auth-Schema", "S2S");
+        headers.add("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
+        HttpEntity<MoneyTransferDomainDto> customRequestEntity = new HttpEntity<>(moneyTransferDto, headers);
         ResponseEntity<Object> response;
         try {
-            response = restTemplate.exchange(slug, HttpMethod.GET, generateHeaders(), Object.class);
+            response = restTemplate.exchange(slug, HttpMethod.POST, customRequestEntity, Object.class);
         } catch (HttpClientErrorException e) {
-            log.info("Transaction could not be processed. " + e.getMessage());
+            log.error("Transaction could not be processed. " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getResponseBodyAsString());
         }
         return response;

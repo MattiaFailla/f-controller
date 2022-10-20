@@ -12,10 +12,10 @@ public class MoneyTransferDomainDto {
     private String executionDate;
     private String uri;
     private String description;
-    private float amount;
+    private Double amount;
     private String currency;
-    private boolean isUrgent;
-    private boolean isInstant;
+    private Boolean isUrgent;
+    private Boolean isInstant;
     private String feeType;
     private String feeAccountId;
     private MoneyTransferTaxReliefDto taxRelief;
