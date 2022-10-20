@@ -1,7 +1,8 @@
 package com.example.fabrickcontroller.service;
 
 import com.example.fabrickcontroller.domain.MaskBalanceDomain;
-import com.example.fabrickcontroller.domain.MaskTransactionDomain;
+import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
+import com.example.fabrickcontroller.domain.TransactionDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @Service
 public class AccountService extends BaseService {
@@ -30,12 +33,6 @@ public class AccountService extends BaseService {
         return restTemplate.exchange(slug, HttpMethod.GET, generateHeaders(), Object.class);
     }
 
-    public ResponseEntity<Object> getBalance0(String accountId) {
-        String slug = baseSlug + "/" + accountId + "/balance";
-        log.info("Retrieving account balance for the account " + accountId);
-        return restTemplate.exchange(slug, HttpMethod.GET, generateHeaders(), Object.class);
-    }
-
     public MaskBalanceDomain getBalance(String accountId) {
         String slug = baseSlug + "/" + accountId + "/balance";
         log.info("Retrieving account balance for the account " + accountId);
@@ -47,9 +44,9 @@ public class AccountService extends BaseService {
         return responseEntity.getBody();
     }
 
-    public MaskTransactionDomain getTransactions(String accountId,
-                                                 String fromAccountingDate,
-                                                 String toAccountingDate) {
+    public MaskTransactionListDomain getTransactions(String accountId,
+                                                     String fromAccountingDate,
+                                                     String toAccountingDate) {
         String slug = baseSlug + "/" + accountId + "/transactions";
         String urlTemplate = UriComponentsBuilder.fromHttpUrl(slug)
                 .queryParam("fromAccountingDate", fromAccountingDate)
@@ -58,19 +55,18 @@ public class AccountService extends BaseService {
                 .toUriString();
         log.info("Retrieving the list of transactions for the account: " + accountId + "" +
                 " from " + fromAccountingDate + " to " + toAccountingDate);
-        ResponseEntity<MaskTransactionDomain> responseEntity = restTemplate.exchange(urlTemplate,
+        ResponseEntity<MaskTransactionListDomain> responseEntity = restTemplate.exchange(urlTemplate,
                 HttpMethod.GET, generateHeaders(),
                 new ParameterizedTypeReference<>() {
                 }
         );
-        MaskTransactionDomain transactions = responseEntity.getBody();
-        if (transactions.getList() != null) {
-            log.info(transactions.getList().toString());
-        } else {
-            log.error("Can't find any tx in the provided timeframe");
-        }
+        MaskTransactionListDomain responseEntityBody = responseEntity.getBody();
+        List<TransactionDomain> txs = responseEntityBody.getPayload().getList();
+        txs.forEach((tx) -> log.info(tx.getDescription()));
         log.info("Updating internal db with the list of txs");
-        return transactions;
+        log.info("Printing base REST request:");
+        log.info(String.valueOf(restTemplate.exchange(urlTemplate, HttpMethod.GET, generateHeaders(), Object.class)));
+        return responseEntityBody;
     }
 
 

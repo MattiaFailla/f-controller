@@ -2,30 +2,30 @@ package com.example.fabrickcontroller.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDomain {
-    private int transactionId;
-    private int operationId;
+    private String transactionId;
+    private String operationId;
     private String accountingDate;
     private String ValueDate;
     private Object type;
-    private int amount;
+    private float amount;
     private String currency;
     private String description;
 
-    public int getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
-    public int getOperationId() {
+    public String getOperationId() {
         return operationId;
     }
 
-    public void setOperationId(int operationId) {
+    public void setOperationId(String operationId) {
         this.operationId = operationId;
     }
 
@@ -53,11 +53,11 @@ public class TransactionDomain {
         this.type = type;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
