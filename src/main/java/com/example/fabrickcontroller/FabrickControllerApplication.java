@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class FabrickControllerApplication {
 
     private static final Logger log = LoggerFactory.getLogger(FabrickControllerApplication.class);
+
     public static void main(String[] args) {
         log.info("Client started..");
         SpringApplication.run(FabrickControllerApplication.class, args);
