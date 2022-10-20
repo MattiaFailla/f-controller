@@ -19,7 +19,6 @@ import java.util.List;
 @Service
 public class AccountService extends BaseService {
     private static final Logger log = LoggerFactory.getLogger(AccountService.class);
-    private final String baseSlug = "https://sandbox.platfr.io/api/gbs/banking/v4.0/accounts";
 
     @Autowired
     TransactionRepository transactionRepository;
@@ -27,8 +26,7 @@ public class AccountService extends BaseService {
     RestTemplate restTemplate;
 
     public ResponseEntity<Object> getAccounts() {
-        ResponseEntity<Object> ResponseEntity = restTemplate.exchange(baseSlug, HttpMethod.GET, generateHeaders(), Object.class);
-        return ResponseEntity;
+        return restTemplate.exchange(baseSlug, HttpMethod.GET, generateHeaders(), Object.class);
     }
 
     public ResponseEntity<Object> getAccount(String accountId) {
@@ -69,8 +67,6 @@ public class AccountService extends BaseService {
         txs.forEach((tx) -> log.info(tx.getDescription()));
         log.info("Updating internal db with the list of txs");
         transactionRepository.saveAll(txs);
-        log.info("Printing base REST request:");
-        log.info(String.valueOf(restTemplate.exchange(urlTemplate, HttpMethod.GET, generateHeaders(), Object.class)));
         return responseEntityBody;
     }
 
