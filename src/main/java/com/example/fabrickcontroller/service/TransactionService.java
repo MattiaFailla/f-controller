@@ -4,7 +4,10 @@ import com.example.fabrickcontroller.dto.MoneyTransferDomainDto;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -23,12 +26,7 @@ public class TransactionService extends BaseService {
     public @NotNull ResponseEntity<Object> triggerTransaction(String accountId, @NotNull MoneyTransferDomainDto moneyTransferDto) {
         String slug = baseSlug + "/" + accountId + "/payments/money-transfers";
         log.info("Triggering transaction for a total value of " + moneyTransferDto.getAmount() + " to " + moneyTransferDto.getCreditor());
-        // Custom headers set due to type mismatch on post request headers type
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Auth-Schema", "S2S");
-        headers.add("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
-        HttpEntity<MoneyTransferDomainDto> customRequestEntity = new HttpEntity<>(moneyTransferDto, headers);
+        HttpEntity<MoneyTransferDomainDto> customRequestEntity = new HttpEntity<>(moneyTransferDto, generateHeaders().getHeaders());
         ResponseEntity<Object> response;
         try {
             response = restTemplate.exchange(slug, HttpMethod.POST, customRequestEntity, Object.class);
