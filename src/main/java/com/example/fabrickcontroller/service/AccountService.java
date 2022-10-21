@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +21,15 @@ import java.util.List;
 public class AccountService extends BaseService {
     private static final Logger log = LoggerFactory.getLogger(AccountService.class);
 
-    @Autowired
+    final
     TransactionRepository transactionRepository;
-    @Autowired
+    final
     RestTemplate restTemplate;
+
+    public AccountService(TransactionRepository transactionRepository, RestTemplate restTemplate) {
+        this.transactionRepository = transactionRepository;
+        this.restTemplate = restTemplate;
+    }
 
     public @NotNull ResponseEntity<Object> getAccounts() {
         return restTemplate.exchange(baseSlug, HttpMethod.GET, generateHeaders(), Object.class);

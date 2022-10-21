@@ -1,5 +1,6 @@
 package com.example.fabrickcontroller.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MoneyTransferTaxReliefDto implements Serializable {
     private String taxReliefId;
+    @JsonProperty("isCondoUpgrade")
     private Boolean isCondoUpgrade;
     private String creditorFiscalCode;
     private String beneficiaryType;

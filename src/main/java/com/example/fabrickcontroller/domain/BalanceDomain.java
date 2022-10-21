@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BalanceDomain {
     private String date;
-    private float balance;
-    private float availableBalance;
+    private Double balance;
+    private Double availableBalance;
     private String currency;
 
     public String getDate() {
@@ -17,19 +17,19 @@ public class BalanceDomain {
         this.date = date;
     }
 
-    public float getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public float getAvailableBalance() {
+    public Double getAvailableBalance() {
         return availableBalance;
     }
 
-    public void setAvailableBalance(float availableBalance) {
+    public void setAvailableBalance(Double availableBalance) {
         this.availableBalance = availableBalance;
     }
 

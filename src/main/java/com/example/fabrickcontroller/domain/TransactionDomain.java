@@ -29,7 +29,7 @@ public class TransactionDomain {
     @Column(name = "type")
     private Object type;
     @Column(name = "amount")
-    private float amount;
+    private Double amount;
     @Column(name = "currency")
     private String currency;
     @Column(name = "description")
@@ -79,11 +79,11 @@ public class TransactionDomain {
         this.type = type;
     }
 
-    public float getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

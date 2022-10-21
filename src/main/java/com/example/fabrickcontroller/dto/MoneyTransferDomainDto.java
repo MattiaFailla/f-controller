@@ -1,5 +1,6 @@
 package com.example.fabrickcontroller.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,9 @@ public class MoneyTransferDomainDto {
     private String description;
     private Double amount;
     private String currency;
+    @JsonProperty("isUrgent")
     private Boolean isUrgent;
+    @JsonProperty("isInstant")
     private Boolean isInstant;
     private String feeType;
     private String feeAccountId;

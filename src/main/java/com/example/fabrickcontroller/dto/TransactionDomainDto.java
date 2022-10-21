@@ -19,7 +19,7 @@ public class TransactionDomainDto implements Serializable {
     private final @NotNull String operationId;
     private final @NotNull String accountingDate;
     private final @NotNull String ValueDate;
-    private final float amount;
+    private final Double amount;
     private final @NotNull String currency;
     private final @NotNull String description;
 }
