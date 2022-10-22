@@ -4,15 +4,18 @@ import com.example.fabrickcontroller.domain.MaskBalanceDomain;
 import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.service.AccountService;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/f/accounts")
 public class AccountController {
-    @Autowired
+    final
     AccountService accountService;
+
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @GetMapping()
     public ResponseEntity<?> getAccounts() {
