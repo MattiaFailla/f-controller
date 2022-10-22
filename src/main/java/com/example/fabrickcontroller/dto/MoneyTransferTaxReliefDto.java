@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +16,7 @@ public class MoneyTransferTaxReliefDto implements Serializable {
     @JsonProperty("isCondoUpgrade")
     private Boolean isCondoUpgrade;
     private String creditorFiscalCode;
-    private String beneficiaryType;
+    private BeneficiaryTypeDto beneficiaryType;
     private MoneyTransferTaxReliefNaturalPersonBeneficiaryDto naturalPersonBeneficiary;
     private MoneyTransferTaxReliefLegalPersonBeneficiaryDto legalPersonBeneficiary;
 }
