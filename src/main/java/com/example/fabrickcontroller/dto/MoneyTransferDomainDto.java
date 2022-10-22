@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class MoneyTransferDomainDto {
     private Boolean isUrgent;
     @JsonProperty("isInstant")
     private Boolean isInstant;
-    private String feeType;
+    private feeTypeDto feeType;
     private String feeAccountId;
     private MoneyTransferTaxReliefDto taxRelief;
 }
