@@ -3,7 +3,6 @@ package com.example.fabrickcontroller.controller;
 import com.example.fabrickcontroller.dto.MoneyTransferDomainDto;
 import com.example.fabrickcontroller.service.TransactionService;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/f/transactions")
 public class TransactionController {
 
-    @Autowired
+    final
     TransactionService transactionService;
+
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @PostMapping("/{accountId}/create-transaction")
     public ResponseEntity<?> createMoneyTransfer(@PathVariable(name = "accountId") String accountId,
