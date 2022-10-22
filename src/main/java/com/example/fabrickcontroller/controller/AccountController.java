@@ -3,7 +3,6 @@ package com.example.fabrickcontroller.controller;
 import com.example.fabrickcontroller.domain.MaskBalanceDomain;
 import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.service.AccountService;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +15,12 @@ public class AccountController {
     AccountService accountService;
 
     @GetMapping()
-    public @NotNull ResponseEntity<Object> getAccounts() {
+    public ResponseEntity<?> getAccounts() {
         return accountService.getAccounts();
     }
 
     @GetMapping("/{accountId}")
-    public @NotNull ResponseEntity<Object> getAccount(@PathVariable("accountId") String accountId) {
+    public ResponseEntity<?> getAccount(@PathVariable("accountId") String accountId) {
         return accountService.getAccount(accountId);
     }
 

@@ -31,11 +31,11 @@ public class AccountService extends BaseService {
         this.restTemplate = restTemplate;
     }
 
-    public @NotNull ResponseEntity<Object> getAccounts() {
+    public @NotNull ResponseEntity<?> getAccounts() {
         return restTemplate.exchange(baseSlug, HttpMethod.GET, generateHeaders(), Object.class);
     }
 
-    public @NotNull ResponseEntity<Object> getAccount(String accountId) {
+    public @NotNull ResponseEntity<?> getAccount(String accountId) {
         String slug = baseSlug + "/" + accountId;
         log.info("Requesting data from " + slug);
         return restTemplate.exchange(slug, HttpMethod.GET, generateHeaders(), Object.class);

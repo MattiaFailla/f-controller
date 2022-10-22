@@ -15,8 +15,8 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping("/{accountId}/create-transaction")
-    public @NotNull ResponseEntity<Object> createMoneyTransfer(@PathVariable(name = "accountId") String accountId,
-                                                               @RequestBody @NotNull MoneyTransferDomainDto moneyTransferDto) {
+    public ResponseEntity<?> createMoneyTransfer(@PathVariable(name = "accountId") String accountId,
+                                                 @RequestBody @NotNull MoneyTransferDomainDto moneyTransferDto) {
         return transactionService.triggerTransaction(accountId, moneyTransferDto);
     }
 
