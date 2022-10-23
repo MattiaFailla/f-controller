@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class MoneyTransferDomainDto {
     private MoneyTransferCreditorDto creditor;
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String executionDate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
