@@ -31,7 +31,7 @@ public class TransactionService extends BaseService {
         try {
             response = restTemplate.exchange(slug, HttpMethod.POST, customRequestEntity, Object.class);
         } catch (HttpClientErrorException e) {
-            log.error("Transaction could not be processed. " + e.getMessage());
+            log.error("Transaction not processable.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getResponseBodyAsString());
         }
         return response;

@@ -4,6 +4,8 @@ import com.example.fabrickcontroller.domain.MaskBalanceDomain;
 import com.example.fabrickcontroller.domain.MaskTransactionListDomain;
 import com.example.fabrickcontroller.service.AccountService;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,15 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
     final
     AccountService accountService;
+
+    // Convert a predefined exception to an HTTP Status code
+    @ResponseStatus(value = HttpStatus.CONFLICT,
+            reason = "Data integrity violation")  // 409
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public String conflict() {
+
+        return "{\"status\":\"OK\",\"error\":[],\"payload\":{}";
+    }
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
